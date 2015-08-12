@@ -1,6 +1,5 @@
 var passport = require('passport');
-var User = require('User');
-var router = require('router');
+var User = require('../models/User');
 var express = require('express');
 
 // renders the login page
