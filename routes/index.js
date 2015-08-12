@@ -3,8 +3,8 @@ var passport = require('passport');
 var User = require('../models/User');
 var router = express.Router();
 var usersController = require('../controllers/usersController');
-var sessionsController = require('../controllers/sessionsControllers');
-var commentsController = require('../controllers/commentsControllers');
+var sessionsController = require('../controllers/sessionsController');
+var commentsController = require('../controllers/commentsController');
 
 /* GET home page. */
 router.get('/', function (req, res) {
