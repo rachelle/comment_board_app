@@ -11,11 +11,17 @@ router.get('/', function (req, res) {
   res.render('index', {user: req.user});
 });
 
-router.get('/register', function (req, res) {
-  res.render('auth/register');
-});
+// GET registration page 
+router.get('/register', usersController.renderRegistrationForm);
 
-router.post('/register', function (req, res) {
+/*router.get('/register', function (req, res) {
+  res.render('auth/register');
+});*/
+
+// creating a new user with the registration page
+router.post('/register', usersController.renderRegisterNewUser);
+
+/*router.post('/register', function (req, res) {
   User.register(new User({username: req.body.username, name: req.body.name}), req.body.password, function(err, user) {
     if (err) return res.render('auth/register', {user: user});
     passport.authenticate('local')(req, res, function () {
@@ -28,25 +34,38 @@ router.post('/register', function (req, res) {
     });
   });
 });
+*/
 
-router.get('/login', function (req, res) {
+// Get login page 
+router.get('/login', usersController.renderLoginPage);
+/*router.get('/login', function (req, res) {
   res.render('auth/login', {user : req.user});
 });
+*/
 
+// Login user 
 router.post('/login', passport.authenticate(
   'local',
   {
     failureRedirect: '/login'
   }),
-  function (req, res, next) {
+  sessionsController.loginUser);
+ /* function (req, res, next) {
     req.session.save(function (err) {
       if (err) return next(err);
       res.redirect('/');
     });
   }
-);
+);*/
 
-router.get('/logout', function (req, res) {
+// Logout User 
+
+router.get('/logout', sessionsController.logout);
+
+// get the comments index page
+router.get('/comments/index', commentsController.showComments);
+
+/*router.get('/logout', function (req, res) {
   req.logout();
   res.redirect('/');
 });
@@ -62,6 +81,6 @@ function isLoggedIn(req, res, next) {
     return next();
   // if they aren't redirect them to the login page
   res.redirect('/login');
-}
+}*/
 
 module.exports = router;
